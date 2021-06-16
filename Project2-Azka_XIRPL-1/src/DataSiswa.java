@@ -1,3 +1,8 @@
+
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,6 +14,8 @@
  * @author zavia
  */
 public class DataSiswa extends javax.swing.JFrame {
+
+    private String query;
 
     /**
      * Creates new form DataSiswa
@@ -85,6 +92,11 @@ public void showData(){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Refresh");
@@ -95,6 +107,11 @@ public void showData(){
         });
 
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Edit");
 
@@ -157,6 +174,30 @@ public void showData(){
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+    int baris;
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        baris = tbl_siswa.getSelectedRow();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    String idWhoWantToBeDelete = tbl_siswa.getValueAt(baris, 0).toString();
+    try{
+        // TODO add your handling code here:
+        Statement stmt = koneksi.createStatement();
+        String IdWhoWantToBeDelete;
+        int berhasil = stmt.executeUpdate(query);
+        if(berhasil == 1){
+            JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+            dtm.getDataVector().removeAllElements();
+            showData();
+        }else{
+            JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+        }
+    } catch (SQLException ex){
+        ex.printStackTrace();
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +253,34 @@ public void showData(){
     private static class DafaultTableModel {
 
         public DafaultTableModel() {
+        }
+
+        private Object getDataVector() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+    private static class tbl_siswa {
+
+        private static int getSelectedRow() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private static Object getValueAt(int baris, int i) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        public tbl_siswa() {
+        }
+    }
+
+    private static class koneksi {
+
+        private static Statement createStatement() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        public koneksi() {
         }
     }
 }
