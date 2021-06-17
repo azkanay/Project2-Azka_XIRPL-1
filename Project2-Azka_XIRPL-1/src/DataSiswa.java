@@ -1,7 +1,9 @@
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 public class DataSiswa extends javax.swing.JFrame {
 
     private String query;
+    private String kolom;
 
     /**
      * Creates new form DataSiswa
@@ -114,6 +117,11 @@ public void showData(){
         });
 
         jButton3.setText("Edit");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Add");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +181,8 @@ public void showData(){
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        ManageData tambahData = new ManageData(this, true, "Tambah", "");
+        tambahData.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
     int baris;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -198,6 +208,13 @@ public void showData(){
         ex.printStackTrace();
     }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String nis = tbl_siswa.getValueAt(baris, 1).toString();
+        ManageData tambahData = new ManageData(this, true, "Edit", nis);
+        tambahData.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,6 +298,12 @@ public void showData(){
         }
 
         public koneksi() {
+        }
+    }
+
+    private static class stmt {
+
+        public stmt() {
         }
     }
 }
